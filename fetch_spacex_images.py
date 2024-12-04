@@ -1,3 +1,4 @@
+import os.path
 from pathlib import Path
 import requests
 from environs import Env
@@ -13,8 +14,8 @@ def fetch_spacex_images(path, launch_id):
     response = requests.get(spacex_url)
     decoded_response = response.json()
     for image_link_number, image_link in enumerate(
-            decoded_response["links"]["flickr"]["original"]):  # TODO: suppoort links for several OS
-        download_image(image_link, f'{path}/spacex{image_link_number}.jpeg')
+            decoded_response["links"]["flickr"]["original"]):
+        download_image(image_link, os.path.join(path, f'spacex{image_link_number}.jpeg'))
 
 
 def main():

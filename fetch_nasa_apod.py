@@ -1,3 +1,4 @@
+import os.path
 from pathlib import Path
 import requests
 import configargparse
@@ -15,8 +16,8 @@ def fetch_nasa_apod(nasa_api_key, quantity, path):
                }
     response = requests.get(nasa_apod_url, params=payload)
     decoded_response = response.json()
-    for image_link_number, image_information in enumerate(decoded_response):  # TODO: suppoort links for several OS
-        download_image(image_information['hdurl'], f'{path}/nasa_apod_{image_link_number}.jpeg')
+    for image_link_number, image_information in enumerate(decoded_response):
+        download_image(image_information['hdurl'], os.path.join(path, f'nasa_apod_{image_link_number}.jpeg'))
 
 
 def main():

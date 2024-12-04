@@ -1,3 +1,4 @@
+import os.path
 from pathlib import Path
 import datetime
 import requests
@@ -24,7 +25,7 @@ def fetch_nasa_epic(nasa_api_key, path, date):
 
         image_url = f'https://api.nasa.gov/EPIC/archive/natural/{image_date}/png/{image_name}.png?' \
                     f'api_key={nasa_api_key}'
-        download_image(image_url, f'{path}/nasa_epic_{image_number}.png')  # TODO links for several OS
+        download_image(image_url, os.path.join(path, f'nasa_epic_{image_number}.png'))
 
 
 def main():
