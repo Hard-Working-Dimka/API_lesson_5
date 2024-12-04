@@ -1,5 +1,6 @@
 import urllib
 import os
+import requests
 
 
 def get_file_extension(url):
@@ -8,3 +9,9 @@ def get_file_extension(url):
     escaped_filename = os.path.split(image_path)
     filename = urllib.parse.unquote(escaped_filename[1], encoding='utf-8', errors='replace')
     file_extension = os.path.splitext(filename)[1]
+
+def download_image(url, path):
+    response = requests.get(url)
+    response.raise_for_status()
+    with open(path, 'wb') as file:
+        file.write(response.content)
