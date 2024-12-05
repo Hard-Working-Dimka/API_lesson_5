@@ -1,3 +1,4 @@
 requests==2.32.3
 environs==11.2.1
 ConfigArgParse==1.7
+python-telegram-bot==13.15
