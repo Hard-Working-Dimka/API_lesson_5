@@ -5,6 +5,7 @@ from environs import Env
 import configargparse
 
 from image_file_tools import download_image
+from image_file_tools import get_file_extension
 
 
 def fetch_spacex_images(path, launch_id):
@@ -15,7 +16,8 @@ def fetch_spacex_images(path, launch_id):
     decoded_response = response.json()
     for image_link_number, image_link in enumerate(
             decoded_response["links"]["flickr"]["original"]):
-        download_image(image_link, os.path.join(path, f'spacex{image_link_number}.jpeg'))
+        image_extension = get_file_extension(image_link)
+        download_image(image_link, os.path.join(path, f'spacex{image_link_number}.{image_extension}'))
 
 
 def main():

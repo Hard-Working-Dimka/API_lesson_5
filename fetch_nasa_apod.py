@@ -5,6 +5,7 @@ import configargparse
 from environs import Env
 
 from image_file_tools import download_image
+from image_file_tools import get_file_extension
 
 
 def fetch_nasa_apod(nasa_api_key, quantity, path):
@@ -17,7 +18,9 @@ def fetch_nasa_apod(nasa_api_key, quantity, path):
     response = requests.get(nasa_apod_url, params=payload)
     decoded_response = response.json()
     for image_link_number, image_information in enumerate(decoded_response):
-        download_image(image_information['hdurl'], os.path.join(path, f'nasa_apod_{image_link_number}.jpeg'))
+        image_extension = get_file_extension(image_information['hdurl'])
+        download_image(image_information['hdurl'],
+                       os.path.join(path, f'nasa_apod_{image_link_number}.{image_extension}'))
 
 
 def main():
