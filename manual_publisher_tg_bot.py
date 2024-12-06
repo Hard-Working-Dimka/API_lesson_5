@@ -1,3 +1,6 @@
+import os.path
+import random
+
 import telegram
 from environs import Env
 import configargparse
@@ -14,7 +17,12 @@ def main():
     command_line_parser.add_argument('path', help='Путь фотографии')
     args = command_line_parser.parse_args()
 
-    bot.send_document(chat_id=env('CHAT_ID'), document=open(args.path, 'rb'))
+    if os.path.isfile(args.path):
+        bot.send_document(chat_id=env('CHAT_ID'), document=open(args.path, 'rb'))
+    else:
+        for files in os.walk(args.path):
+            images = files[2]
+        bot.send_document(chat_id=env('CHAT_ID'), document=open(os.path.join(args.path, random.choice(images)), 'rb'))
 
 
 if __name__ == '__main__':
