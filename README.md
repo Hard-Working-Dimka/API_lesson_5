@@ -10,7 +10,6 @@
   * [Скрипт `fetch_spacex_images.py`](#скрипт-fetch_spacex_imagespy)
   * [Скрипт `image_file_tools.py`](#скрипт-image_file_toolspy)
   * [Скрипт `manual_publisher_tg_bot.py`](#скрипт-manual_publisher_tg_botpy)
-  * [Цель проекта](#цель-проекта)
 
 ### Как установить
 
