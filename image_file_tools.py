@@ -11,8 +11,9 @@ def get_file_extension(url):
     file_extension = os.path.splitext(filename)[1]
     return file_extension
 
-def download_image(url, path):
+
+def download_image(url, file_path):
     response = requests.get(url)
     response.raise_for_status()
-    with open(path, 'wb') as file:
+    with open(file_path, 'wb') as file:
         file.write(response.content)
