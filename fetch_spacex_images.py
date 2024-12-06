@@ -17,7 +17,7 @@ def fetch_spacex_images(path, launch_id):
     for image_link_number, image_link in enumerate(
             decoded_response["links"]["flickr"]["original"]):
         image_extension = get_file_extension(image_link)
-        download_image(image_link, os.path.join(path, f'spacex{image_link_number}.{image_extension}'))
+        download_image(image_link, os.path.join(path, f'spacex{image_link_number}{image_extension}'))
 
 
 def main():

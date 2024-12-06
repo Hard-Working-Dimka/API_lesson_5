@@ -20,7 +20,7 @@ def fetch_nasa_apod(nasa_api_key, quantity, path):
     for image_link_number, image_information in enumerate(decoded_response):
         image_extension = get_file_extension(image_information['hdurl'])
         download_image(image_information['hdurl'],
-                       os.path.join(path, f'nasa_apod_{image_link_number}.{image_extension}'))
+                       os.path.join(path, f'nasa_apod_{image_link_number}{image_extension}'))
 
 
 def main():
