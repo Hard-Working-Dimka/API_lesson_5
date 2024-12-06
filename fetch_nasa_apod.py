@@ -30,11 +30,13 @@ def main():
     command_line_parser = configargparse.ArgumentParser(
         description='Загрузка картинок космоса из NASA APOD'
     )
-    command_line_parser.add_argument('-p', '--path', default='images', help='Путь загрузки фотографий')
-    command_line_parser.add_argument('-q', '--quantity', default=1, help='Количество фотографий')
+    command_line_parser.add_argument('-p', '--path', default='images', env_var='PATH',
+                                     help='Путь загрузки фотографий')
+    command_line_parser.add_argument('-q', '--quantity', default=1, env_var='IMAGE_QUANTITY',
+                                     help='Количество фотографий')
     args = command_line_parser.parse_args()
 
-    fetch_nasa_apod(env('NASA_API_KEY'), args.quantity, args.path)
+    fetch_nasa_apod(env('NASA_API_KEY'), int(args.quantity), args.path)
 
 
 if __name__ == '__main__':
