@@ -35,7 +35,8 @@ def main():
     command_line_parser = configargparse.ArgumentParser(
         description='Загрузка картинок космоса из NASA EPIC'
     )
-    command_line_parser.add_argument('-p', '--path', default='images', help='Путь загрузки фотографий')
+    command_line_parser.add_argument('-p', '--path', default='images', env_var='PATH',
+                                     help='Путь загрузки фотографий')
     command_line_parser.add_argument('-d', '--date', default=datetime.date.today(),
                                      help='Формат даты: ГГГГ-ММ-ДД')
     args = command_line_parser.parse_args()
