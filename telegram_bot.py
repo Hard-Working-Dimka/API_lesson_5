@@ -1,5 +1,11 @@
+import os.path
+import time
+import random
+
 import telegram
 from environs import Env
+import configargparse
+from pytimeparse import parse
 
 
 def main():
@@ -7,13 +13,21 @@ def main():
     env.read_env()
     bot = telegram.Bot(token=env('TG_API_KEY'))
 
-    chat_id = '@kfjfisnwhfiwjd'
+    command_line_parser = configargparse.ArgumentParser(
+        description='Запуск ТГ бота для выкладывания картинок'
+    )
+    command_line_parser.add_argument('-p', '--path', default='images', help='Путь загрузки фотографий')
+    command_line_parser.add_argument('-per', '--publication_period', default='4h',
+                                     env_var='PUBLICATION_PERIOD', help='Период отправки фотографий')
+    args = command_line_parser.parse_args()
 
-    #  bot.send_message(chat_id=chat_id, text="I'm sorry Dave I'm afraid I can't do that.")
-    bot.send_document(chat_id=chat_id,
-                      document=open(
-                          'D:\\Projects\\PYTHON\\Lessons\\Web Services API\\API_lesson_5\\images\\nasa_apod_0.jpeg',
-                          'rb'))  # TODO: использовать os.path.join
+    for files in os.walk(args.path):
+        images = files[2]
+    while True:
+        for image in images:
+            bot.send_document(chat_id=env('CHAT_ID'), document=open(os.path.join(args.path, image), 'rb'))
+            time.sleep(parse(args.publication_period))
+        random.shuffle(images)
 
 
 if __name__ == '__main__':
