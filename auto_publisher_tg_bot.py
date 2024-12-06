@@ -16,7 +16,8 @@ def main():
     command_line_parser = configargparse.ArgumentParser(
         description='Запуск ТГ бота для выкладывания картинок'
     )
-    command_line_parser.add_argument('-p', '--path', default='images', help='Путь загрузки фотографий')
+    command_line_parser.add_argument('-p', '--path', default='images', env_var='PATH',
+                                     help='Путь загрузки фотографий')
     command_line_parser.add_argument('-per', '--publication_period', default='4h',
                                      env_var='PUBLICATION_PERIOD', help='Период отправки фотографий')
     args = command_line_parser.parse_args()
