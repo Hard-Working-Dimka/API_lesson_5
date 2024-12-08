@@ -10,6 +10,7 @@ def main():
     env = Env()
     env.read_env()
     bot = telegram.Bot(token=env('TG_API_KEY'))
+    chat_id = env('CHAT_ID')
 
     command_line_parser = configargparse.ArgumentParser(
         description='Запуск ТГ бота для выкладывания картинок'
@@ -22,7 +23,7 @@ def main():
     else:
         for files in os.walk(args.path):
             images = files[2]
-        bot.send_document(chat_id=env('CHAT_ID'), document=open(os.path.join(args.path, random.choice(images)), 'rb'))
+        bot.send_document(chat_id=chat_id, document=open(os.path.join(args.path, random.choice(images)), 'rb'))
 
 
 if __name__ == '__main__':

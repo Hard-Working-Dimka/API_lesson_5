@@ -12,6 +12,7 @@ def main():
     env = Env()
     env.read_env()
     bot = telegram.Bot(token=env('TG_API_KEY'))
+    chat_id = env('CHAT_ID')
 
     command_line_parser = configargparse.ArgumentParser(
         description='Запуск ТГ бота для выкладывания картинок'
@@ -26,7 +27,7 @@ def main():
         images = files[2]
     while True:
         for image in images:
-            bot.send_document(chat_id=env('CHAT_ID'), document=open(os.path.join(args.path, image), 'rb'))
+            bot.send_document(chat_id=chat_id, document=open(os.path.join(args.path, image), 'rb'))
             time.sleep(parse(args.publication_period))
         random.shuffle(images)
 
