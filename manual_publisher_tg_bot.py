@@ -19,7 +19,7 @@ def main():
     args = command_line_parser.parse_args()
 
     if os.path.isfile(args.path):
-        bot.send_document(chat_id=env('CHAT_ID'), document=open(args.path, 'rb'))
+        bot.send_document(chat_id=chat_id, document=open(args.path, 'rb'))
     else:
         for files in os.walk(args.path):
             images = files[2]
