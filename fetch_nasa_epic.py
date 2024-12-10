@@ -21,8 +21,8 @@ def fetch_nasa_epic(nasa_api_key, path, date):
     decoded_response = response.json()
 
     for image_number, image_data in enumerate(decoded_response):
-        image_datetime = decoded_response[image_number]['date']
-        image_name = decoded_response[image_number]['image']
+        image_datetime = image_data['date']
+        image_name = image_data['image']
         formatted_image_datetime = datetime.datetime.fromisoformat(image_datetime)
         image_date = formatted_image_datetime.strftime('%Y/%m/%d')
 
