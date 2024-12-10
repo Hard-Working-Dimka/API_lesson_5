@@ -27,7 +27,8 @@ def main():
         images = files[2]
     while True:
         for image in images:
-            bot.send_document(chat_id=chat_id, document=open(os.path.join(args.path, image), 'rb'))
+            with open(os.path.join(args.path, image), 'rb') as file:
+                bot.send_document(chat_id=chat_id, document=file)
             time.sleep(parse(args.publication_period))
         random.shuffle(images)
 
