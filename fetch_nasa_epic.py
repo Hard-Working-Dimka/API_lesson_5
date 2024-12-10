@@ -17,6 +17,7 @@ def fetch_nasa_epic(nasa_api_key, path, date):
         'natural/date': date,
     }
     response = requests.get(nasa_epic_url, params=payload)
+    response.raise_for_status()
     decoded_response = response.json()
 
     for image_number, image_data in enumerate(decoded_response):

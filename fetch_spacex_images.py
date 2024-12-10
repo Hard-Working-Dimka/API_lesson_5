@@ -13,6 +13,7 @@ def fetch_spacex_images(path, launch_id):
 
     spacex_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(spacex_url)
+    response.raise_for_status()
     decoded_response = response.json()
     for image_link_number, image_link in enumerate(
             decoded_response["links"]["flickr"]["original"]):
