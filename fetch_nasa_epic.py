@@ -12,8 +12,10 @@ def fetch_nasa_epic(nasa_api_key, path, date):
     Path(path).mkdir(parents=True, exist_ok=True)
 
     nasa_epic_url = 'https://api.nasa.gov/EPIC/api/natural/date'
-    payload = {'api_key': nasa_api_key,
-               'natural/date': date}
+    payload = {
+        'api_key': nasa_api_key,
+        'natural/date': date,
+    }
     response = requests.get(nasa_epic_url, params=payload)
     decoded_response = response.json()
 
