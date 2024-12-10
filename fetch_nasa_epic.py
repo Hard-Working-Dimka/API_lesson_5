@@ -26,9 +26,11 @@ def fetch_nasa_epic(nasa_api_key, path, date):
         formatted_image_datetime = datetime.datetime.fromisoformat(image_datetime)
         image_date = formatted_image_datetime.strftime('%Y/%m/%d')
 
-        image_url = f'https://api.nasa.gov/EPIC/archive/natural/{image_date}/png/{image_name}.png?' \
-                    f'api_key={nasa_api_key}'
-        download_image(image_url, os.path.join(path, f'nasa_epic_{image_number}.png'))
+        image_payload = {'api_key': nasa_api_key}
+        image_response = requests.get(f'https://api.nasa.gov/EPIC/archive/natural/{image_date}/png/{image_name}.png',
+                                      params=image_payload)
+        response.raise_for_status()
+        download_image(image_response.url, os.path.join(path, f'nasa_epic_{image_number}.png'))
 
 
 def main():
