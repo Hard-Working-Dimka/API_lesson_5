@@ -12,9 +12,10 @@ def fetch_nasa_apod(nasa_api_key, quantity, path):
     Path(path).mkdir(parents=True, exist_ok=True)
 
     nasa_apod_url = 'https://api.nasa.gov/planetary/apod'
-    payload = {'api_key': nasa_api_key,
-               'count': quantity,
-               }
+    payload = {
+        'api_key': nasa_api_key,
+        'count': quantity,
+    }
     response = requests.get(nasa_apod_url, params=payload)
     decoded_response = response.json()
     for image_link_number, image_information in enumerate(decoded_response):
