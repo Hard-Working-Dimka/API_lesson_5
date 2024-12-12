@@ -4,6 +4,7 @@ import datetime
 import requests
 import configargparse
 from environs import Env
+from requests.models import PreparedRequest
 
 from image_file_tools import download_image
 
@@ -27,10 +28,10 @@ def fetch_nasa_epic(nasa_api_key, path, date):
         image_date = formatted_image_datetime.strftime('%Y/%m/%d')
 
         image_payload = {'api_key': nasa_api_key}
-        image_response = requests.get(f'https://api.nasa.gov/EPIC/archive/natural/{image_date}/png/{image_name}.png',
-                                      params=image_payload)
-        response.raise_for_status()
-        download_image(image_response.url, os.path.join(path, f'nasa_epic_{image_number}.png'))
+        image_url = f'https://api.nasa.gov/EPIC/archive/natural/{image_date}/png/{image_name}.png'
+        request = PreparedRequest()
+        request.prepare_url(image_url, image_payload)
+        download_image(request.url, os.path.join(path, f'nasa_epic_{image_number}.png'))
 
 
 def main():
