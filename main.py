@@ -1,6 +1,6 @@
 from environs import Env
-import pprint
 import requests
+from terminaltables import AsciiTable
 
 LANGUAGES = (
     "Python",
@@ -18,7 +18,7 @@ LANGUAGES = (
 
 def predict_rub_salary_for_hh(vacancy):
     if vacancy["salary"]:
-        if vacancy["salary"]["currency"] == 'RUR':
+        if vacancy["salary"]["currency"] == "RUR":
             salary_from = vacancy["salary"]["from"]
             salary_to = vacancy["salary"]["to"]
             return predict_salary(salary_from, salary_to)
@@ -61,7 +61,7 @@ def get_statistics_on_languages_from_hh(languages):
             response = requests.get(url, params=payload)
             response.raise_for_status()
             response_file.append(response.json())
-            if response_file[page]['pages'] == page + 1:
+            if response_file[page]["pages"] == page + 1:
                 break
             page += 1
 
@@ -70,7 +70,7 @@ def get_statistics_on_languages_from_hh(languages):
         total_salary = 0
 
         for response_page in response_file:
-            for vacancy in response_page['items']:
+            for vacancy in response_page["items"]:
                 predict_salary = predict_rub_salary_for_hh(vacancy)
                 if predict_salary:
                     vacancies_processed += 1
@@ -138,12 +138,23 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
     return statistics
 
 
+def print_statistics(statistics, table_name):
+    table_data = [["Язык программирования", "Вакансий найдено", "Вакансий обработано", "Средняя зарплата "], ]
+    for language, language_statistics in statistics.items():
+        row = []
+        row.append(language)
+        [row.append(column) for column in list(language_statistics.values())]
+        table_data.append(row)
+    table = AsciiTable(table_data, title=table_name)
+    print(table.table)
+    print()
+
+
 def main():
     env = Env()
     env.read_env()
-    pprint.pprint(get_statistics_on_languages_from_hh(LANGUAGES))
-    # pprint.pprint(get_statistics_on_languages_from_sj(LANGUAGES, env("SUPERJOB_API")))
-    # TODO: выгрузить все ответы в отдельные файлы, а так же не забывать проверять ответ на валиднось
+    print_statistics(get_statistics_on_languages_from_sj(LANGUAGES, env("SUPERJOB_API_KEY")), "SuperJob Moscow")
+    print_statistics(get_statistics_on_languages_from_hh(LANGUAGES), "HeadHunter Moscow")
 
 
 if __name__ == '__main__':
