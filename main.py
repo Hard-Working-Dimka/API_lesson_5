@@ -48,7 +48,7 @@ def get_statistics_on_languages_from_hh(languages):
     statistics = {}
     url = "https://api.hh.ru/vacancies"
     for language in languages:
-        response_file = []
+        decoded_response = []
         page = 0
 
         while True:
@@ -60,16 +60,16 @@ def get_statistics_on_languages_from_hh(languages):
             }
             response = requests.get(url, params=payload)
             response.raise_for_status()
-            response_file.append(response.json())
-            if response_file[page]["pages"] == page + 1:
+            decoded_response.append(response.json())
+            if decoded_response[page]["pages"] == page + 1:
                 break
             page += 1
 
-        vacancies_found = response_file[0]["found"]
+        vacancies_found = decoded_response[0]["found"]
         vacancies_processed = 0
         total_salary = 0
 
-        for response_page in response_file:
+        for response_page in decoded_response:
             for vacancy in response_page["items"]:
                 predict_salary = predict_rub_salary_for_hh(vacancy)
                 if predict_salary:
@@ -96,7 +96,7 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
     }
 
     for language in languages:
-        response_file = []
+        decoded_response = []
         page = 0
 
         while True:
@@ -109,17 +109,17 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
             }
             response = requests.get(url, headers=headers, params=payload)
             response.raise_for_status()
-            response_file.append(response.json())
-            if not response_file[page]["more"]:
+            decoded_response.append(response.json())
+            if not decoded_response[page]["more"]:
                 break
             print(page)
             page += 1
 
-        vacancies_found = response_file[0]["total"]
+        vacancies_found = decoded_response[0]["total"]
         vacancies_processed = 0
         total_salary = 0
 
-        for response_page in response_file:
+        for response_page in decoded_response:
             for vacancy in response_page["objects"]:
                 predict_salary = predict_rub_salary_for_sj(vacancy)
                 if predict_salary:
