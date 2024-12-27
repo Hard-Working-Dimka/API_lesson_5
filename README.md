@@ -19,7 +19,7 @@ pip install -r requirements.txt
 SUPERJOB_API_KEY=""
 ```
 
-SUPERJOB_API_KEY- можно получить, зарегистрировавшись на сайте [NASA](https://api.superjob.ru). Далее необходимо
+SUPERJOB_API_KEY - можно получить, зарегистрировавшись на сайте [Superjob](https://api.superjob.ru). Далее необходимо
 зарегистрировать приложение. После регистрации необходима строчка - `Secret key`
 
 ### Цель проекта
