@@ -118,7 +118,6 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
             decoded_response.append(response.json())
             if not decoded_response[page]["more"]:
                 break
-            print(page)
             page += 1
 
         vacancies_found = decoded_response[0]["total"]
