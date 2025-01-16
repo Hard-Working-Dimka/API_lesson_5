@@ -23,20 +23,19 @@ RESULTS_PER_PAGE_FOR_SJ = 100
 
 
 def predict_rub_salary_for_hh(vacancy):
-    if vacancy["salary"]:
-        if vacancy["salary"]["currency"] == "RUR":
-            salary_from = vacancy["salary"]["from"]
-            salary_to = vacancy["salary"]["to"]
-            return predict_salary(salary_from, salary_to)
-    return None
+    if not (vacancy["salary"] and vacancy["salary"]["currency"] == "RUR"):
+        return None
+    salary_from = vacancy["salary"]["from"]
+    salary_to = vacancy["salary"]["to"]
+    return predict_salary(salary_from, salary_to)
 
 
 def predict_rub_salary_for_sj(vacancy):
-    if vacancy["currency"] == "rub":
-        salary_from = vacancy["payment_from"]
-        salary_to = vacancy["payment_to"]
-        return predict_salary(salary_from, salary_to)
-    return None
+    if vacancy["currency"] != "rub":
+        return None
+    salary_from = vacancy["payment_from"]
+    salary_to = vacancy["payment_to"]
+    return predict_salary(salary_from, salary_to)
 
 
 def predict_salary(salary_from, salary_to):
