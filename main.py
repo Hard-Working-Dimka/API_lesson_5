@@ -17,7 +17,7 @@ LANGUAGES = (
 
 ID_OF_REGION_FOR_HH = "1"
 RESULTS_PER_PAGE_FOR_HH = 100
-IF_OF_TOWN_FOR_SJ = 4
+ID_OF_TOWN_FOR_SJ = 4
 KEY_OF_CATALOG_OF_WORK_FOR_SJ = 48
 RESULTS_PER_PAGE_FOR_SJ = 100
 
@@ -108,7 +108,7 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
         while True:
             payload = {
                 "keyword": f"Программист {language}",
-                "town": IF_OF_TOWN_FOR_SJ,
+                "town": ID_OF_TOWN_FOR_SJ,
                 "catalogues": KEY_OF_CATALOG_OF_WORK_FOR_SJ,
                 "count": RESULTS_PER_PAGE_FOR_SJ,
                 "page": page,
