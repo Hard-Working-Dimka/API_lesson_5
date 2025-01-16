@@ -54,7 +54,7 @@ def get_statistics_on_languages_from_hh(languages):
     statistics = {}
     url = "https://api.hh.ru/vacancies"
     for language in languages:
-        decoded_response = []
+        vacancies = []
         page = 0
 
         while True:
@@ -66,16 +66,16 @@ def get_statistics_on_languages_from_hh(languages):
             }
             response = requests.get(url, params=payload)
             response.raise_for_status()
-            decoded_response.append(response.json())
-            if decoded_response[page]["pages"] == page + 1:
+            vacancies.append(response.json())
+            if vacancies[page]["pages"] == page + 1:
                 break
             page += 1
 
-        vacancies_found = decoded_response[0]["found"]
+        vacancies_found = vacancies[0]["found"]
         vacancies_processed = 0
         total_salary = 0
 
-        for response_page in decoded_response:
+        for response_page in vacancies:
             for vacancy in response_page["items"]:
                 predict_salary = predict_rub_salary_for_hh(vacancy)
                 if predict_salary:
@@ -102,7 +102,7 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
     }
 
     for language in languages:
-        decoded_response = []
+        vacancies = []
         page = 0
 
         while True:
@@ -115,16 +115,16 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
             }
             response = requests.get(url, headers=headers, params=payload)
             response.raise_for_status()
-            decoded_response.append(response.json())
-            if not decoded_response[page]["more"]:
+            vacancies.append(response.json())
+            if not vacancies[page]["more"]:
                 break
             page += 1
 
-        vacancies_found = decoded_response[0]["total"]
+        vacancies_found = vacancies[0]["total"]
         vacancies_processed = 0
         total_salary = 0
 
-        for response_page in decoded_response:
+        for response_page in vacancies:
             for vacancy in response_page["objects"]:
                 predict_salary = predict_rub_salary_for_sj(vacancy)
                 if predict_salary:
