@@ -59,7 +59,7 @@ def get_statistics_on_languages_from_hh(languages):
 
         while True:
             payload = {
-                "text": "программист " + language,
+                "text": f"программист {language}",
                 "area": ID_OF_REGION_FOR_HH,
                 "page": page,
                 "per_page": RESULTS_PER_PAGE_FOR_HH,
@@ -107,7 +107,7 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
 
         while True:
             payload = {
-                "keyword": "Программист " + language,
+                "keyword": f"Программист {language}",
                 "town": IF_OF_TOWN_FOR_SJ,
                 "catalogues": KEY_OF_CATALOG_OF_WORK_FOR_SJ,
                 "count": RESULTS_PER_PAGE_FOR_SJ,
