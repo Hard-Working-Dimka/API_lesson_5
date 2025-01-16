@@ -15,6 +15,12 @@ LANGUAGES = (
     "Shell",
 )
 
+ID_OF_REGION_FOR_HH = "1"
+RESULTS_PER_PAGE_FOR_HH = 100
+IF_OF_TOWN_FOR_SJ = 4
+KEY_OF_CATALOG_OF_WORK_FOR_SJ = 48
+RESULTS_PER_PAGE_FOR_SJ = 100
+
 
 def predict_rub_salary_for_hh(vacancy):
     if vacancy["salary"]:
@@ -54,9 +60,9 @@ def get_statistics_on_languages_from_hh(languages):
         while True:
             payload = {
                 "text": "программист " + language,
-                "area": "1",
+                "area": ID_OF_REGION_FOR_HH,
                 "page": page,
-                "per_page": 100,
+                "per_page": RESULTS_PER_PAGE_FOR_HH,
             }
             response = requests.get(url, params=payload)
             response.raise_for_status()
@@ -102,9 +108,9 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
         while True:
             payload = {
                 "keyword": "Программист " + language,
-                "town": 4,
-                "catalogues": 48,
-                "count": 100,
+                "town": IF_OF_TOWN_FOR_SJ,
+                "catalogues": KEY_OF_CATALOG_OF_WORK_FOR_SJ,
+                "count": RESULTS_PER_PAGE_FOR_SJ,
                 "page": page,
             }
             response = requests.get(url, headers=headers, params=payload)
