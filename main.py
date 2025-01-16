@@ -77,10 +77,10 @@ def get_statistics_on_languages_from_hh(languages):
 
         for response_page in vacancies:
             for vacancy in response_page["items"]:
-                predict_salary = predict_rub_salary_for_hh(vacancy)
-                if predict_salary:
+                expected_salary = predict_rub_salary_for_hh(vacancy)
+                if expected_salary:
                     vacancies_processed += 1
-                    total_salary += predict_salary
+                    total_salary += expected_salary
         if not total_salary:
             average_salary = 0
         else:
@@ -126,10 +126,10 @@ def get_statistics_on_languages_from_sj(languages, sj_api):
 
         for response_page in vacancies:
             for vacancy in response_page["objects"]:
-                predict_salary = predict_rub_salary_for_sj(vacancy)
-                if predict_salary:
+                expected_salary = predict_rub_salary_for_sj(vacancy)
+                if expected_salary:
                     vacancies_processed += 1
-                    total_salary += predict_salary
+                    total_salary += expected_salary
         if not total_salary:
             average_salary = 0
         else:
